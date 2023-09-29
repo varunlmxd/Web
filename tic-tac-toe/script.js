@@ -24,18 +24,15 @@ function result(event){
 
 async function add(event){
     const id = event.target.id
-    console.log(id)
     var image =document.getElementById(id)
     var number = Number(id[1])
     var index = arr.indexOf(number)
-    console.log("index:",index)
     if(curr_turn == 'x'){
         arr.splice(index,1)
         board[number] = curr_turn
         image.querySelector('img').src='images/x.png'
         document.getElementById("current-turn").innerHTML="A.I Turn"
         image.removeEventListener("click",add);
-        console.log(await check())
         if( (!await check()) && arr.length>0){
             index = (Math.floor(Math.random() * arr.length))
             board[arr[index]] = 'o'
@@ -47,7 +44,6 @@ async function add(event){
         }
         else{
             var choice = document.querySelectorAll('button')
-            console.log(choice)
             choice.forEach(choice => choice.removeEventListener("click",result));
             }
         await check()
@@ -62,7 +58,6 @@ async function add(event){
             index = (Math.floor(Math.random() * arr.length))
             board[arr[index]] = 'x'
             image =document.getElementById('b'+arr[index])
-            console.log(image)
             arr.splice(index,1)
             image.querySelector('img').src='images/x.png'
             document.getElementById("current-turn").innerHTML="Your Turn"
@@ -70,7 +65,6 @@ async function add(event){
         }
         else{
         var choice = document.querySelectorAll('button')
-        console.log(choice)
         choice.forEach(choice => choice.removeEventListener("click",add));
         }
         await check()        
