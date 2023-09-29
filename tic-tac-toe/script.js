@@ -34,7 +34,7 @@ async function add(event){
         board[number] = curr_turn
         image.querySelector('img').src='images/x.png'
         document.getElementById("current-turn").innerHTML="A.I Turn"
-        image.removeEventListener("click",result);
+        image.removeEventListener("click",add);
         console.log(await check())
         if( (!await check()) && arr.length>0){
             index = (Math.floor(Math.random() * arr.length))
@@ -43,7 +43,7 @@ async function add(event){
             arr.splice(index,1)
             image.querySelector('img').src='images/o.png'
             document.getElementById("current-turn").innerHTML="Your Turn"
-            image.removeEventListener("click",result);
+            image.removeEventListener("click",add);
         }
         else{
             var choice = document.querySelectorAll('button')
@@ -57,7 +57,7 @@ async function add(event){
         board[number] = curr_turn
         image.querySelector('img').src='images/o.png'
         document.getElementById("current-turn").innerHTML="A.I Turn"
-        image.removeEventListener("click",result);
+        image.removeEventListener("click",add);
         if( (!await check()) && arr.length>0){
             index = (Math.floor(Math.random() * arr.length))
             board[arr[index]] = 'x'
@@ -66,18 +66,15 @@ async function add(event){
             arr.splice(index,1)
             image.querySelector('img').src='images/x.png'
             document.getElementById("current-turn").innerHTML="Your Turn"
-            image.removeEventListener("click",result);
+            image.removeEventListener("click",add);
         }
         else{
         var choice = document.querySelectorAll('button')
         console.log(choice)
-        choice.forEach(choice => choice.removeEventListener("click",result));
+        choice.forEach(choice => choice.removeEventListener("click",add));
         }
         await check()        
     }
-    
-}
-async function remove_listener(){
     
 }
 
@@ -87,18 +84,19 @@ async function check(){
         document.getElementById('winner').innerHTML = "X Wins!"
         const choice = document.querySelectorAll('button')
         console.log(choice)
-        choice.forEach(choice => choice.removeEventListener("click",remove_listener));
+        choice.forEach(choice => choice.removeEventListener("click",add));
         return true;
     }
     else if(winner =='o'){
         document.getElementById('winner').innerHTML = "O Wins!"
         const choice = document.querySelectorAll('button')
-        console.log(choice)
-        choice.forEach(choice => choice.removeEventListener("click",remove_listener));
+        choice.forEach(choice => choice.removeEventListener("click",add));
         return true;
     }
     else if(arr.length == 0){
         document.getElementById('winner').innerHTML = "Draw!!!!!!"
+        const choice = document.querySelectorAll('button')
+        choice.forEach(choice => choice.removeEventListener("click",add));
         return true;
     }
     return false;
